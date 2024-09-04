@@ -14,7 +14,7 @@
 - To enable Google Maps for Web, enable the "Maps JavaScript API".
 - Make sure the APIs you enabled are under the "Enabled APIs" section.
     
-3-installing google_maps_flutter package.
+3-Installing google_maps_flutter package.
 
 4- Add Api Key In Project:
 - Add Api key in android/app/src/main/AndroidManifest.xml
