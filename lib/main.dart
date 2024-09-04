@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/env/environment_variables.dart';
 
-void main() {
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await EnvironmentVariables.initEnvVariables();
   runApp(const MyApp());
 }
 
