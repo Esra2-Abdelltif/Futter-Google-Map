@@ -1,6 +1,7 @@
 # Flutter Google Map
 
 1-Get an API key at [cloud.google.com](https://cloud.google.com/maps-platform/) .
+
 2-Enable Google Map SDK for each platform.
     .Go to Google Developers Console.
     .Choose the project that you want to enable Google Maps on.
@@ -11,6 +12,7 @@
     .To enable Google Maps for Web, enable the "Maps JavaScript API".
     .Make sure the APIs you enabled are under the "Enabled APIs" section.
 3-installing google_maps_flutter package.
+
 4- Add Api Key In Project
     .Add Api key in android/app/src/main/AndroidManifest.xml
     .Add Api key in ios/Runner/AppDelegate.swift
