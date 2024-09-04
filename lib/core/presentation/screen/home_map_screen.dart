@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeMapScreen extends StatelessWidget {
   const HomeMapScreen({super.key});
@@ -8,6 +9,10 @@ class HomeMapScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('First Google Map'),
+      ),
+      body: const GoogleMap(
+        initialCameraPosition: CameraPosition(
+            target: LatLng(37.43296265331129, -122.08832357078792), zoom: 19),
       ),
     );
   }
