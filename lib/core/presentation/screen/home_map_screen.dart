@@ -8,7 +8,7 @@ class HomeMapScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('First Google Map'),
+        title: const Text('First Google Map'),
       ),
       body: const GoogleMap(
         initialCameraPosition: CameraPosition(
