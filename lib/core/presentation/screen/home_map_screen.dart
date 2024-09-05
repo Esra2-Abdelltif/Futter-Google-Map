@@ -12,7 +12,7 @@ class HomeMapScreen extends StatefulWidget {
 }
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
-  Set<Marker> myMarkers = Set<Marker>();
+  Set<Marker> myMarkers = <Marker>{};
 
   @override
   Widget build(BuildContext context) {
