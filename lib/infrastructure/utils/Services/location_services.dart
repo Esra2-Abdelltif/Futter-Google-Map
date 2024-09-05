@@ -13,6 +13,7 @@ class LocationService {
       if (!serviceEnabled) {
         throw Exception();
       }
+
     }
 
     permissionGranted = await location.hasPermission();
