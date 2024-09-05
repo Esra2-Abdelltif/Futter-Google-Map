@@ -1,22 +1,9 @@
-# Flutter Google Map
+# Flutter Google Map Type
 
-# ⚡ Steps
+-normal: It displays the tiles on the map with traffic, labels and subtle terrain information.
 
-1-Get an API key at [cloud.google.com](https://cloud.google.com/maps-platform/) .
+-satellite: It displays the satellite image (aerial photos) of the location.
 
-2-Enable Google Map SDK for each platform.
-- Go to Google Developers Console.
-- Choose the project that you want to enable Google Maps on.
-- Select the navigation menu and then select "Google Maps".
-- Select "APIs" under the Google Maps menu.
-- To enable Google Maps for Android, select "Maps SDK for Android" in the "Additional APIs" section, then select "ENABLE".
-- To enable Google Maps for iOS, select "Maps SDK for iOS" in the "Additional APIs" section, then select "ENABLE".
-- To enable Google Maps for Web, enable the "Maps JavaScript API".
-- Make sure the APIs you enabled are under the "Enabled APIs" section.
-    
-3-Installing google_maps_flutter package.
+-terrain: It displays the specific physical features of an area of land (indicates type and height of terrain).
 
-4- Add Api Key In Project:
-- Add Api key in android/app/src/main/AndroidManifest.xml
-- Add Api key in ios/Runner/AppDelegate.swift
-
+-hybrid: It displays the satellite images with some labels or overlays.
