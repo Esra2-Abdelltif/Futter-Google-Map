@@ -1,12 +1,6 @@
-import 'dart:collection';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'dart:collection';
-
-import 'package:share/share.dart';
 
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
