@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,6 +11,16 @@ class HomeMapScreen extends StatefulWidget {
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
   Set<Marker> myMarkers = <Marker>{};
+  Set<Circle> myCircles = {
+     Circle(
+      circleId:const CircleId('1'),
+      center: const LatLng(29.955404, 32.476655),
+      radius: 500,
+      strokeWidth: 1,
+      fillColor:Colors.blue.withOpacity(0.3),
+       strokeColor: Colors.blue
+    )
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               });
             },
             markers: myMarkers,
+            circles: myCircles,
           ),
         ],
       ),
