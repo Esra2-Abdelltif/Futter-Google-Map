@@ -11,17 +11,29 @@ class HomeMapScreen extends StatefulWidget {
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
   Set<Marker> myMarkers = <Marker>{};
-  Set<Circle> myCircles = {
-     Circle(
-      circleId:const CircleId('1'),
-      center: const LatLng(29.955404, 32.476655),
-      radius: 500,
-      strokeWidth: 1,
-      fillColor:Colors.blue.withOpacity(0.3),
-       strokeColor: Colors.blue
-    )
-  };
+  List<Polyline> myPolyline = [];
+  @override
+  void initState() {
+    super.initState();
+    createPloyLine();
+  }
 
+  createPloyLine() {
+    myPolyline.add(
+      Polyline(
+          polylineId:const PolylineId('1'),
+          color: Colors.blue,
+          width: 3,
+          points:const [
+            LatLng(29.955404, 32.476655),
+            LatLng(29.946445, 32.495107),
+          ],
+          patterns: [
+            PatternItem.dash(20),
+            PatternItem.gap(10),
+          ]),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +71,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               });
             },
             markers: myMarkers,
-            circles: myCircles,
+            polylines: myPolyline.toSet(),
           ),
         ],
       ),
