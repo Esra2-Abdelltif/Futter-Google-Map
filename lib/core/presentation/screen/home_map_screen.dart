@@ -2,8 +2,12 @@ import 'dart:collection';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/core/presentation/constants/app_image.dart';
+import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:collection';
+
+import 'package:share/share.dart';
+
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
 
@@ -25,26 +29,33 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
           GoogleMap(
             initialCameraPosition: const CameraPosition(
                 bearing: 192.8334901395799,
-                target: LatLng(37.43296265331129, -122.08832357078792),
+                target: LatLng(29.955404, 32.476655),
                 tilt: 59.440717697143555,
                 zoom: 19.151926040649414),
             onMapCreated: (GoogleMapController googleMapController) {
               setState(() {
-                myMarkers.add(
-                  const Marker(
-                    markerId: MarkerId('1'),
-                    position: LatLng(37.43296265331129, -122.08832357078792),
-                      icon: BitmapDescriptor.defaultMarker
+                myMarkers.add( Marker(
+                  markerId:const MarkerId('1'),
+                  position:const LatLng(29.955404, 32.476655),
+                  icon: BitmapDescriptor.defaultMarker,
+                   onTap: (){
+                     shareAddressLink(subject: "Home Address",lat:"29.955404",lng:"32.476655");
+                },
+                  infoWindow: InfoWindow(
+                    title: 'Home',
+                    snippet: 'ElSafa , Suez',
+                    onTap: (){
+                    print("Marker tabed");
+                    }
                   ),
+
+
+                )
                 );
               });
             },
             markers: myMarkers,
           ),
-
-
-
-
         ],
       ),
     );
