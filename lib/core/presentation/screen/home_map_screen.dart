@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -11,7 +12,18 @@ class HomeMapScreen extends StatefulWidget {
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
   Set<Marker> myMarkers = <Marker>{};
+ late BitmapDescriptor customMarker; //attribute
 
+  getCustomMarker() async {
+    customMarker = await BitmapDescriptor.fromAssetImage(
+        ImageConfiguration.empty, AppImagePaths.hotelImage);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCustomMarker();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +43,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                 myMarkers.add( Marker(
                   markerId:const MarkerId('1'),
                   position:const LatLng(29.955404, 32.476655),
-                  icon: BitmapDescriptor.defaultMarker,
+                  icon: customMarker,
                    onTap: (){
                      shareAddressLink(subject: "Home Address",lat:"29.955404",lng:"32.476655");
                 },
