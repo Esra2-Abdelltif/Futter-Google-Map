@@ -12,17 +12,22 @@ class HomeMapScreen extends StatefulWidget {
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
   Set<Marker> myMarkers = <Marker>{};
- late BitmapDescriptor customMarker; //attribute
 
-  getCustomMarker() async {
-    customMarker = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration.empty, AppImagePaths.hotelImage);
-  }
+  Set<Polygon> myPolygon() {
+    List<LatLng> polygonCoords =[] ;
+    polygonCoords.add(const LatLng(37.43296265331129, -122.08832357078792));
+    polygonCoords.add(const LatLng(37.43006265331129, -122.08832357078792));
+    polygonCoords.add(const LatLng(37.43006265331129, -122.08332357078792));
+    polygonCoords.add(const LatLng(37.43296265331129, -122.08832357078792));
 
-  @override
-  void initState() {
-    super.initState();
-    getCustomMarker();
+    Set<Polygon> polygonSet = {};
+    polygonSet.add(Polygon(
+        polygonId: const PolygonId('test'),
+        points: polygonCoords,
+        strokeWidth: 2,
+        fillColor:Colors.transparent,
+        strokeColor: Colors.red));
+    return polygonSet;
   }
   @override
   Widget build(BuildContext context) {
@@ -35,15 +40,14 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
           GoogleMap(
             initialCameraPosition: const CameraPosition(
                 bearing: 192.8334901395799,
-                target: LatLng(29.955404, 32.476655),
+                target: LatLng(37.43296265331129, -122.08832357078792),
                 tilt: 59.440717697143555,
-                zoom: 19.151926040649414),
+                zoom:16),
             onMapCreated: (GoogleMapController googleMapController) {
               setState(() {
                 myMarkers.add( Marker(
                   markerId:const MarkerId('1'),
                   position:const LatLng(29.955404, 32.476655),
-                  icon: customMarker,
                    onTap: (){
                      shareAddressLink(subject: "Home Address",lat:"29.955404",lng:"32.476655");
                 },
@@ -61,6 +65,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               });
             },
             markers: myMarkers,
+            polygons: myPolygon(),
           ),
         ],
       ),
