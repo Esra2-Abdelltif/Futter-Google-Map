@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -12,22 +13,6 @@ class HomeMapScreen extends StatefulWidget {
 class _HomeMapScreenState extends State<HomeMapScreen> {
   Set<Marker> myMarkers = <Marker>{};
 
-  Set<Polygon> myPolygon() {
-    List<LatLng> polygonCoords =[] ;
-    polygonCoords.add(const LatLng(37.43296265331129, -122.08832357078792));
-    polygonCoords.add(const LatLng(37.43006265331129, -122.08832357078792));
-    polygonCoords.add(const LatLng(37.43006265331129, -122.08332357078792));
-    polygonCoords.add(const LatLng(37.43296265331129, -122.08832357078792));
-
-    Set<Polygon> polygonSet = {};
-    polygonSet.add(Polygon(
-        polygonId: const PolygonId('test'),
-        points: polygonCoords,
-        strokeWidth: 2,
-        fillColor:Colors.transparent,
-        strokeColor: Colors.red));
-    return polygonSet;
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,11 +22,12 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
       body: Stack(
         children: [
           GoogleMap(
+            mapType: MapType.normal,
             initialCameraPosition: const CameraPosition(
                 bearing: 192.8334901395799,
-                target: LatLng(37.43296265331129, -122.08832357078792),
+                target: LatLng(29.955404, 32.476655),
                 tilt: 59.440717697143555,
-                zoom:16),
+                zoom: 16),
             onMapCreated: (GoogleMapController googleMapController) {
               setState(() {
                 myMarkers.add( Marker(
@@ -64,7 +50,6 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               });
             },
             markers: myMarkers,
-            polygons: myPolygon(),
           ),
         ],
       ),
