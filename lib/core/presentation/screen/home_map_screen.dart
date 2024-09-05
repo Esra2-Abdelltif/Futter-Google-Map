@@ -3,7 +3,7 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
+import 'dart:collection';
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
 
@@ -12,64 +12,36 @@ class HomeMapScreen extends StatefulWidget {
 }
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
-  Set<Marker>_markers = Set<Marker>();
-  var marker=HashSet();
+  Set<Marker> myMarkers = Set<Marker>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('First Google Map'),
+        title: const Text('Google Map'),
       ),
       body: Stack(
         children: [
-          const GoogleMap(
-            initialCameraPosition: CameraPosition(
+          GoogleMap(
+            initialCameraPosition: const CameraPosition(
                 bearing: 192.8334901395799,
                 target: LatLng(37.43296265331129, -122.08832357078792),
                 tilt: 59.440717697143555,
                 zoom: 19.151926040649414),
+            onMapCreated: (GoogleMapController googleMapController) {
+              setState(() {
+                myMarkers.add(
+                  const Marker(
+                    markerId: MarkerId('1'),
+                    position: LatLng(37.43296265331129, -122.08832357078792),
+                      icon: BitmapDescriptor.defaultMarker
+                  ),
+                );
+              });
+            },
+            markers: myMarkers,
           ),
-          // Container(
-          //   alignment: Alignment.bottomCenter,
-          //   child: Image.asset(AppImagePaths.hotelImage),
-          // ),
-          Positioned(
-            bottom: 50,
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height*0.16,
-              width: MediaQuery.of(context).size.width,
-              child: PageView.builder(
-                itemBuilder:(context, index) {
-                  return Card(
-                    elevation: 2,
-                    shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.circular(16),
-                    ),
-                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                    child: SizedBox(
-                       height: MediaQuery.of(context).size.height*0.16,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Image(
-                              image:const AssetImage(AppImagePaths.hotelImage),
-                               width: MediaQuery.of(context).size.width-(8),
-                                height: MediaQuery.of(context).size.height*0.35,
-                              fit: BoxFit.fill),
 
-
-                        ],
-                      ),
-                    ),
-                  );
-                } ,
-                itemCount: 5,
-
-
-              ),
-            ),
-          ),
 
 
 
