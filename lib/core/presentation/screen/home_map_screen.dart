@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/infrastructure/utils/functions/share_fun.dart';
+import 'package:flutter_map/infrastructure/utils/Services/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
@@ -10,30 +12,19 @@ class HomeMapScreen extends StatefulWidget {
 }
 
 class _HomeMapScreenState extends State<HomeMapScreen> {
-  Set<Marker> myMarkers = <Marker>{};
-  List<Polyline> myPolyline = [];
+  final Completer<GoogleMapController> _controller = Completer();
+  static const CameraPosition _initialCameraPosition =CameraPosition(
+      bearing: 192.8334901395799,
+      target: LatLng(29.955404, 32.476655),
+      tilt: 59.440717697143555,
+      zoom: 16);
+  LatLng currentLocation = _initialCameraPosition.target;
+
   @override
   void initState() {
     super.initState();
-    createPloyLine();
   }
 
-  createPloyLine() {
-    myPolyline.add(
-      Polyline(
-          polylineId:const PolylineId('1'),
-          color: Colors.blue,
-          width: 3,
-          points:const [
-            LatLng(29.955404, 32.476655),
-            LatLng(29.946445, 32.495107),
-          ],
-          patterns: [
-            PatternItem.dash(20),
-            PatternItem.gap(10),
-          ]),
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,37 +35,51 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
         children: [
           GoogleMap(
             mapType: MapType.normal,
-            initialCameraPosition: const CameraPosition(
-                bearing: 192.8334901395799,
-                target: LatLng(29.955404, 32.476655),
-                tilt: 59.440717697143555,
-                zoom: 16),
-            onMapCreated: (GoogleMapController googleMapController) {
+            initialCameraPosition: _initialCameraPosition,
+            onMapCreated: ( googleMapController) {
+              _controller.complete(googleMapController);
+            },
+            onCameraMove: (CameraPosition newsPos ) {
               setState(() {
-                myMarkers.add( Marker(
-                  markerId:const MarkerId('1'),
-                  position:const LatLng(29.955404, 32.476655),
-                   onTap: (){
-                     shareAddressLink(subject: "Home Address",lat:"29.955404",lng:"32.476655");
-                },
-                  infoWindow: InfoWindow(
-                    title: 'Home',
-                    snippet: 'ElSafa , Suez',
-                    onTap: (){
-                    print("Marker tabed");
-                    }
-                  ),
-
-
-                )
-                );
+                currentLocation = newsPos.target;
               });
             },
-            markers: myMarkers,
-            polylines: myPolyline.toSet(),
+
           ),
         ],
       ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () => getMyLocation(),
+            child: const Icon(Icons.gps_fixed),
+          ),
+        ],
+      ),
+
+
+      //to print Location
+      bottomNavigationBar: Container(
+        height: 20,
+        alignment: Alignment.center,
+        child: Text(
+            "lat: ${currentLocation.latitude}, long: ${currentLocation.longitude}"),
+      ),
     );
+  }
+
+  Future<void> getMyLocation() async {
+    LocationData myLocation = await LocationService().getLocation();
+    animateCamera(LatLng(myLocation.latitude!, myLocation.longitude!));
+  }
+  Future<void> animateCamera(LatLng location) async {
+    final GoogleMapController controller = await _controller.future;
+    CameraPosition cameraPosition = CameraPosition(
+      target: location,
+      zoom: 19.00,
+    );
+    print("animating camera to (lat: ${location.latitude}, long: ${location.longitude}");
+    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 }
