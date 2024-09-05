@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_map/infrastructure/utils/Services/location_services.dart';
 import 'package:flutter_map/infrastructure/utils/functions/location_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
