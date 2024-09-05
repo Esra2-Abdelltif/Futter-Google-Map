@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/infrastructure/utils/Services/location_services.dart';
+import 'package:flutter_map/infrastructure/utils/functions/location_fun.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -52,7 +53,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
-            onPressed: () => getMyLocation(),
+            onPressed: () => LocationFun.getMyLocation(_controller),
             child: const Icon(Icons.gps_fixed),
           ),
         ],
@@ -69,17 +70,4 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
     );
   }
 
-  Future<void> getMyLocation() async {
-    LocationData myLocation = await LocationService().getLocation();
-    animateCamera(LatLng(myLocation.latitude!, myLocation.longitude!));
-  }
-  Future<void> animateCamera(LatLng location) async {
-    final GoogleMapController controller = await _controller.future;
-    CameraPosition cameraPosition = CameraPosition(
-      target: location,
-      zoom: 19.00,
-    );
-    print("animating camera to (lat: ${location.latitude}, long: ${location.longitude}");
-    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-  }
 }
