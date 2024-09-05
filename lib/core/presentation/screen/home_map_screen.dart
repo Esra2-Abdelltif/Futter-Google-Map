@@ -1,10 +1,19 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class HomeMapScreen extends StatelessWidget {
+class HomeMapScreen extends StatefulWidget {
   const HomeMapScreen({super.key});
 
+  @override
+  State<HomeMapScreen> createState() => _HomeMapScreenState();
+}
+
+class _HomeMapScreenState extends State<HomeMapScreen> {
+  Set<Marker>_markers = Set<Marker>();
+  var marker=HashSet();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
