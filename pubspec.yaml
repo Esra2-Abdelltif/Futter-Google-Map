@@ -39,7 +39,10 @@ dependencies:
   flutter_dotenv: ^5.1.0
   google_maps_flutter: ^2.9.0
   share: ^2.0.4
+  #get device location
   location: ^7.0.0
+  #Search For Addresses
+  flutter_google_places: ^0.3.0
 
 
 dev_dependencies:
