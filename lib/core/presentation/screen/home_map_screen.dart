@@ -44,7 +44,11 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
           GoogleMap(
             mapType: MapType.normal,
             initialCameraPosition: _initialCameraPosition,
-            onMapCreated: ( googleMapController) {
+            onMapCreated: ( googleMapController) async{
+              String style = await DefaultAssetBundle.of(context)
+                  .loadString('assets/map_style.json');
+              //customize your map style at: https://mapstyle.withgoogle.com/
+              googleMapController.setMapStyle(style);
               _controller.complete(googleMapController);
             },
             onCameraMove: (CameraPosition newsPos ) {

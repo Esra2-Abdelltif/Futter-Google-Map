@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String assetsMapStyle = 'assets/map_style.json';
   static const String flutterMap = '.env';
   static const String imagesHotel = 'assets/images/hotel.jpg';
   static const String imagesLocationIcon = 'assets/images/location_icon.png';
