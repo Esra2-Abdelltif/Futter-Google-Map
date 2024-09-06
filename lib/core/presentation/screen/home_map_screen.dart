@@ -29,6 +29,9 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Google Map'),
+        actions: [
+          IconButton(onPressed: ()=>LocationFun.showSearchDialog(context,_controller), icon: const Icon(Icons.search))
+        ],
       ),
       body: Stack(
         children: [
