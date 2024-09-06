@@ -43,6 +43,8 @@ dependencies:
   location: ^7.0.0
   #Search For Addresses
   flutter_google_places: ^0.3.0
+  #Polylines & Shortest Distance
+  flutter_polyline_points: ^1.0.0
 
 
 dev_dependencies:
