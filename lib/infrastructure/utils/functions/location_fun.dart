@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_map/core/presentation/constants/data_constants.dart';
+import 'package:flutter_map/infrastructure/env/environment_variables.dart';
 import 'package:flutter_map/infrastructure/utils/Services/location_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -28,7 +28,7 @@ class LocationFun{
  static Future<void> showSearchDialog(BuildContext context , Completer<GoogleMapController> _controller) async {
    var p = await PlacesAutocomplete.show(
        context: context,
-       apiKey: Constants.apiKey,
+       apiKey:EnvironmentVariables.setGoogleMapApiKeyValue(),
        mode: Mode.fullscreen,
        language: "ar",
        region: "ar",
@@ -43,7 +43,7 @@ class LocationFun{
 
  static Future<void> getLocationFromPlaceId(String placeId, Completer<GoogleMapController> _controller) async {
    GoogleMapsPlaces places = GoogleMapsPlaces(
-     apiKey: Constants.apiKey,
+     apiKey: EnvironmentVariables.setGoogleMapApiKeyValue(),
      apiHeaders: await const GoogleApiHeaders().getHeaders(),
    );
 
