@@ -21,7 +21,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
   LatLng currentLocation = _initialCameraPosition.target;
   BitmapDescriptor? _locationIcon;
   Set<Marker> markers = {};
-
+  Set<Polyline> polyLines = {};
   @override
   void initState() {
     setState(() {
@@ -53,6 +53,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
               });
             },
             markers: markers,
+            polylines: polyLines,
 
           ),
         ],
@@ -61,12 +62,21 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           FloatingActionButton(
+            onPressed: () { setState(() {
+              LocationFun.drawPolyline(
+                  const LatLng(38.52900208591146, -98.54919254779816),
+                  currentLocation,polyLines,markers);
+            });
+            },
+            child: const Icon(Icons.settings_ethernet_rounded),
+          ),
+          FloatingActionButton(
             onPressed: () {
               setState(() {
-                LocationFun.setMarker(currentLocation,currentLocation,markers);
+                LocationFun.setMarker(currentLocation,markers);
               });
             },
-            child: Icon(Icons.location_on),
+            child: const Icon(Icons.location_on),
           ),
           FloatingActionButton(
             onPressed: () => LocationFun.getMyLocation(_controller),

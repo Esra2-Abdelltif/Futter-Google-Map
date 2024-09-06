@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_map/core/presentation/constants/app_image.dart';
 import 'package:flutter_map/infrastructure/env/environment_variables.dart';
 import 'package:flutter_map/infrastructure/utils/Services/location_services.dart';
+import 'package:flutter_map/infrastructure/utils/Services/polyline_services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
@@ -63,7 +64,7 @@ class LocationFun {
   }
 
   //setMarker
-  static void setMarker(LatLng location, LatLng currentLocation, Set<Marker> markers) {
+  static void setMarker(LatLng location, Set<Marker> markers) {
     Marker newMarker = Marker(
       markerId: MarkerId(location.toString()),
       icon: BitmapDescriptor.defaultMarker,
@@ -71,7 +72,7 @@ class LocationFun {
       position: location,
       infoWindow: InfoWindow(
           title: "Title",
-          snippet: "${currentLocation.latitude}, ${currentLocation.longitude}"),
+          snippet: "${location.latitude}, ${location.longitude}"),
     );
     markers.add(newMarker);
   }
@@ -80,4 +81,15 @@ class LocationFun {
         const ImageConfiguration(size: Size(48, 48)),
         AppImagePaths.locationIconImage);
   }
+
+  static Future<void> drawPolyline(LatLng from, LatLng to,Set<Polyline> polyLines,Set<Marker> markers ) async {
+    Polyline polyline = await PolylineService().drawPolyline(from, to);
+
+    polyLines.add(polyline);
+
+    setMarker(from,markers);
+    setMarker(to,markers);
+
+  }
+
 }
