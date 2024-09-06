@@ -17,10 +17,16 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
       target: LatLng(29.955404, 32.476655),
       tilt: 59.440717697143555,
       zoom: 16);
+
   LatLng currentLocation = _initialCameraPosition.target;
+  BitmapDescriptor? _locationIcon;
+  Set<Marker> markers = {};
 
   @override
   void initState() {
+    setState(() {
+      LocationFun.buildMarkerFromAssets(_locationIcon);
+    });
     super.initState();
   }
 
@@ -46,6 +52,7 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
                 currentLocation = newsPos.target;
               });
             },
+            markers: markers,
 
           ),
         ],
@@ -53,6 +60,14 @@ class _HomeMapScreenState extends State<HomeMapScreen> {
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                LocationFun.setMarker(currentLocation,currentLocation,markers);
+              });
+            },
+            child: Icon(Icons.location_on),
+          ),
           FloatingActionButton(
             onPressed: () => LocationFun.getMyLocation(_controller),
             child: const Icon(Icons.gps_fixed),
